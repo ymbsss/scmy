@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乡土美育 - 乡村艺术教育平台</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'chuxiong-red': '#B93A32',
+                        'chuxiong-black': '#2C2C2C',
+                        'earth-yellow': '#E6C288',
+                        'sage-green': '#8DA399',
+                        'paper-white': '#F9F7F2'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        display: ['"ZCOOL KuaiLe"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F9F7F2;
+            color: #2C2C2C;
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B93A32; }
+
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .pattern-yi { background-image: radial-gradient(#B93A32 1px, transparent 1px); background-size: 20px 20px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .card-hover { transition: all 0.3s ease; }
+
+        .progress-bar { height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #B93A32, #E6C288); }
+
+        .gradient-text { background: linear-gradient(135deg, #B93A32, #E6C288); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center cursor-pointer" onclick="router('home')">
+                    <i class="fa-solid fa-palette text-chuxiong-red text-2xl mr-2"></i>
+                    <span class="font-display text-2xl text-chuxiong-black tracking-wider">乡土美育</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6 items-center">
+                    <button onclick="router('home')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">首页</button>
+                    <button onclick="router('resources')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">美育资源馆</button>
+                    <button onclick="router('local')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">乡土美育</button>
+                    <button onclick="router('teachers')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">教师备课</button>
+                    <button onclick="router('students')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">学生创作</button>
+                    <button onclick="router('calendar')" class="nav-link text-gray-600 hover:text-chuxiong-red font-medium transition">活动日历</button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 hover:text-chuxiong-red focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="router('home')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">首页</button>
+                <button onclick="router('resources')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">美育资源馆</button>
+                <button onclick="router('local')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">乡土美育</button>
+                <button onclick="router('teachers')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">教师备课</button>
+                <button onclick="router('students')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">学生创作</button>
+                <button onclick="router('calendar')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">活动日历</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-content" class="flex-grow">
+        <!-- Content injected via JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-chuxiong-black text-white mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-palette text-earth-yellow text-xl mr-2"></i>
+                        <span class="font-display text-xl">乡土美育</span>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4">扎根红土高原，传承民族文化，点亮乡村孩子的艺术梦想。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-weixin text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-weibo text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-envelope text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-display mb-4 text-earth-yellow">平台导航</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><button onclick="router('resources')" class="hover:text-white transition">美育资源馆</button></li>
+                        <li><button onclick="router('local')" class="hover:text-white transition">乡土美育专区</button></li>
+                        <li><button onclick="router('teachers')" class="hover:text-white transition">教师备课角</button></li>
+                        <li><button onclick="router('students')" class="hover:text-white transition">学生创作展</button></li>
+                        <li><button onclick="router('calendar')" class="hover:text-white transition">活动日历</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-display mb-4 text-earth-yellow">帮助与支持</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><button onclick="showModal('offline-guide')" class="hover:text-white transition">离线使用指南</button></li>
+                        <li><button onclick="showModal('copyright')" class="hover:text-white transition">版权声明</button></li>
+                        <li><button onclick="showModal('privacy')" class="hover:text-white transition">青少年保护提示</button></li>
+                        <li><button onclick="showModal('faq')" class="hover:text-white transition">常见问题解答</button></li>
+                        <li><a href="mailto:feedback@xiangtu-art.edu.cn" class="hover:text-white transition"><i class="fa-regular fa-envelope mr-1"></i> 意见反馈</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-display mb-4 text-earth-yellow">数据统计</h3>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="bg-gray-800 p-3 rounded text-center">
+                            <div class="text-earth-yellow font-bold text-lg">2,847</div>
+                            <div class="text-gray-500 text-xs">资源总数</div>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded text-center">
+                            <div class="text-earth-yellow font-bold text-lg">156</div>
+                            <div class="text-gray-500 text-xs">合作学校</div>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded text-center">
+                            <div class="text-earth-yellow font-bold text-lg">12.5k</div>
+                            <div class="text-gray-500 text-xs">受益学生</div>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded text-center">
+                            <div class="text-earth-yellow font-bold text-lg">48</div>
+                            <div class="text-gray-500 text-xs">非遗项目</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+                <p>© 2023 乡土美育平台 · 滇ICP备XXXXXXXX号 · 本站资源采用 CC BY-NC-SA 4.0 协议共享</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative fade-in">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-red-500 z-10">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            <div id="modal-content" class="p-6">
+                <!-- Modal content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-chuxiong-red text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-red-700 transition opacity-0 pointer-events-none z-40">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // --- Mock Data ---
+        const resourcesData = [
+            { id: 1, title: "彝族火把节律动", category: "music", grade: "小学三年级", type: "video", img: "https://placehold.co/600x400/B93A32/FFFFFF?text=Fire+Festival", desc: "通过身体打击乐感受火把节的热烈节奏，学习传统舞蹈步伐。", rating: 4.8, downloads: 1250, tags: ["节奏", "舞蹈", "彝族"] },
+            { id: 2, title: "扎染的色彩秘密", category: "art", grade: "小学五年级", type: "pdf", img: "https://placehold.co/600x400/3B82F6/FFFFFF?text=Tie-Dye", desc: "探索板蓝根染料与布料结合的奇妙纹理，体验传统手工艺。", rating: 4.9, downloads: 980, tags: ["色彩", "手工", "白族"] },
+            { id: 3, title: "阿细跳月舞蹈基础", category: "dance", grade: "初中一年级", type: "video", img: "https://placehold.co/600x400/EAB308/FFFFFF?text=Dance", desc: "学习大三弦舞的基本步伐与队形变换，感受彝族音乐魅力。", rating: 4.7, downloads: 760, tags: ["舞蹈", "传统", "彝族"] },
+            { id: 4, title: "家乡的桥：建筑写生", category: "interdisciplinary", grade: "小学四年级", type: "pdf", img: "https://placehold.co/600x400/10B981/FFFFFF?text=Bridge", desc: "结合数学几何知识进行风雨桥的写生创作，培养空间感知。", rating: 4.6, downloads: 540, tags: ["写生", "建筑", "跨学科"] },
+            { id: 5, title: "民间童谣传唱", category: "music", grade: "小学二年级", type: "audio", img: "https://placehold.co/600x400/8B5CF6/FFFFFF?text=Folk+Song", desc: "收集整理本地流传的古老童谣，学习方言发音与韵律。", rating: 4.9, downloads: 1100, tags: ["声乐", "童谣", "语言"] },
+            { id: 6, title: "面具制作工坊", category: "art", grade: "小学六年级", type: "video", img: "https://placehold.co/600x400/F97316/FFFFFF?text=Masks", desc: "利用废旧材料制作傩戏面具，了解面具文化的象征意义。", rating: 4.5, downloads: 890, tags: ["手工", "戏剧", "民俗"] },
+            { id: 7, title: "剪纸里的故事", category: "art", grade: "小学一年级", type: "pdf", img: "https://placehold.co/600x400/EC4899/FFFFFF?text=Paper-Cut", desc: "从简单对称图形开始，学习中国传统剪纸技艺。", rating: 4.8, downloads: 1340, tags: ["剪纸", "对称", "传统"] },
+            { id: 8, title: "山歌对唱技巧", category: "music", grade: "初中二年级", type: "audio", img: "https://placehold.co/600x400/06B6D4/FFFFFF?text=Mountain+Song", desc: "学习彝族山歌的发声技巧与即兴对唱方法。", rating: 4.6, downloads: 620, tags: ["声乐", "对唱", "彝族"] },
+            { id: 9, title: "民族服饰纹样设计", category: "art", grade: "小学五年级", type: "pdf", img: "https://placehold.co/600x400/84CC16/FFFFFF?text=Patterns", desc: "分析各民族服饰纹样特点，进行创意纹样设计。", rating: 4.7, downloads: 710, tags: ["设计", "纹样", "民族"] },
+            { id: 10, title: "花灯戏表演入门", category: "dance", grade: "初中一年级", type: "video", img: "https://placehold.co/600x400/F43F5E/FFFFFF?text=Lantern+Opera", desc: "学习云南花灯戏的基本步法与手势，体验地方戏曲。", rating: 4.4, downloads: 430, tags: ["戏曲", "表演", "花灯"] },
+            { id: 11, title: "陶艺基础：捏塑成型", category: "art", grade: "小学三年级", type: "video", img: "https://placehold.co/600x400/92400E/FFFFFF?text=Clay+Art", desc: "学习陶艺基本技法，用泥土创作立体造型。", rating: 4.8, downloads: 950, tags: ["陶艺", "立体", "手工"] },
+            { id: 12, title: "自然材料拼贴画", category: "interdisciplinary", grade: "小学二年级", type: "pdf", img: "https://placehold.co/600x400/14B8A6/FFFFFF?text=Nature+Art", desc: "收集落叶、树枝等自然材料创作拼贴画。", rating: 4.5, downloads: 680, tags: ["拼贴", "自然", "环保"] }
+        ];
+
+        const studentWorks = [
+            { id: 1, name: "小华", school: "希望小学", teacher: "张老师", title: "我眼中的家乡", img: "https://placehold.co/400x400/FFD700/333?text=My+Hometown", desc: "用蜡笔画出了村口的古树和小河，色彩明快。", likes: 128, category: "绘画" },
+            { id: 2, name: "阿果", school: "民族中学", teacher: "李老师", title: "刺绣纹样设计", img: "https://placehold.co/400x400/B93A32/FFF?text=Embroidery", desc: "尝试将现代几何图形融入传统纹样，大胆创新。", likes: 95, category: "手工" },
+            { id: 3, name: "小明", school: "中心小学", teacher: "王老师", title: "泥土的歌声", img: "https://placehold.co/400x400/8B4513/FFF?text=Clay", desc: "陶艺作品，表现了丰收的场景，造型生动。", likes: 76, category: "陶艺" },
+            { id: 4, name: "小丽", school: "希望小学", teacher: "赵老师", title: "山间清风", img: "https://placehold.co/400x400/228B22/FFF?text=Wind", desc: "摄影作品，捕捉清晨的山雾，构图优美。", likes: 112, category: "摄影" },
+            { id: 5, name: "小龙", school: "民族中学", teacher: "刘老师", title: "火把节之夜", img: "https://placehold.co/400x400/FF4500/FFF?text=Fire+Night", desc: "水彩画，表现了火把节的热闹场景。", likes: 89, category: "绘画" },
+            { id: 6, name: "阿依", school: "中心小学", teacher: "陈老师", title: "妈妈的围腰", img: "https://placehold.co/400x400/4B0082/FFF?text=Apron", desc: "刺绣作品，传统图案与现代色彩结合。", likes: 104, category: "手工" },
+            { id: 7, name: "小杰", school: "希望小学", teacher: "张老师", title: "校园一角", img: "https://placehold.co/400x400/87CEEB/333?text=School", desc: "素描作品，细致刻画了校园的老槐树。", likes: 67, category: "绘画" },
+            { id: 8, name: "小芳", school: "民族中学", teacher: "李老师", title: "山歌新唱", img: "https://placehold.co/400x400/FF69B4/FFF?text=Song", desc: "音频作品，将传统山歌改编为现代旋律。", likes: 143, category: "音乐" }
+        ];
+
+        const eventsData = [
+            { id: 1, title: "2024年春季美育作品征集", date: "2024-03-01 至 2024-05-31", status: "进行中", type: "征集", desc: "面向全州乡村学校征集美术、音乐、手工作品。" },
+            { id: 2, title: "彝族刺绣工作坊（线上）", date: "2024-04-15", status: "即将开始", type: "工作坊", desc: "非遗传承人在线教学，学习基础针法。" },
+            { id: 3, title: "乡土美育教师培训", date: "2024-04-20 至 2024-04-22", status: "报名中", type: "培训", desc: "为期三天的集中培训，涵盖课程设计与实施。" },
+            { id: 4, title: "学生创作展·春季刊发布", date: "2024-06-01", status: "预告", type: "展览", desc: "展示本季度优秀作品，线上线下同步展出。" },
+            { id: 5, title: "火把节特别活动", date: "2024-07-25", status: "预告", type: "活动", desc: "结合火把节开展系列美育活动。" }
+        ];
+
+        const testimonials = [
+            { name: "李老师", role: "楚雄市某乡村小学美术教师", content: "平台上的资源非常贴合我们学校的实际情况，教案详细，视频清晰，孩子们特别喜欢。", avatar: "T1" },
+            { name: "张校长", role: "南华县某民族中学校长", content: "引入乡土美育课程后，学生们的文化自信明显增强，辍学率也下降了。", avatar: "T2" },
+            { name: "王老师", role: "姚安县某中心校音乐教师", content: "民间歌谣资源让我找到了教学灵感，孩子们唱起家乡的歌谣特别有感情。", avatar: "T3" }
+        ];
+
+        // --- Router & View Rendering ---
+
+        function router(route) {
+            const app = document.getElementById('app-content');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-chuxiong-red');
+                link.classList.add('text-gray-600');
+            });
+            document.querySelectorAll(`.nav-link`).forEach(link => {
+                if (link.textContent.includes(getRouteName(route))) {
+                    link.classList.remove('text-gray-600');
+                    link.classList.add('text-chuxiong-red');
+                }
+            });
+
+            switch(route) {
+                case 'home': app.innerHTML = renderHome(); break;
+                case 'resources': app.innerHTML = renderResources(); initResourceFilter(); break;
+                case 'local': app.innerHTML = renderLocal(); initGallery(); break;
+                case 'teachers': app.innerHTML = renderTeachers(); initTeacherTabs(); break;
+                case 'students': app.innerHTML = renderStudents(); break;
+                case 'calendar': app.innerHTML = renderCalendar(); break;
+                default: app.innerHTML = renderHome();
+            }
+        }
+
+        function getRouteName(route) {
+            const names = {
+                'home': '首页', 'resources': '美育资源馆', 'local': '乡土美育',
+                'teachers': '教师备课', 'students': '学生创作', 'calendar': '活动日历'
+            };
+            return names[route] || '';
+        }
+
+        // --- View Components ---
+
+        function renderHome() {
+            return `
+                <!-- Hero Section -->
+                <div class="relative bg-chuxiong-black text-white overflow-hidden">
+                    <div class="absolute inset-0 opacity-20 pattern-yi"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-chuxiong-black via-transparent to-transparent"></div>
+                    
+                    <div class="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 relative z-10">
+                        <div class="md:flex md:items-center md:justify-between">
+                            <div class="md:w-3/5 mb-10 md:mb-0">
+                                <div class="inline-block bg-earth-yellow text-chuxiong-black text-xs font-bold px-3 py-1 rounded-full mb-4">2024年春季学期已更新</div>
+                                <h1 class="text-4xl md:text-6xl font-display mb-6 text-earth-yellow leading-tight">发现乡土之美<br>点亮艺术童年</h1>
+                                <p class="text-xl text-gray-300 mb-8 max-w-2xl">连接传统与现代，为乡村学校提供系统化、在地化的美育解决方案。已有156所学校加入我们。</p>
+                                <div class="flex flex-wrap gap-4">
+                                    <button onclick="router('resources')" class="bg-chuxiong-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition shadow-lg transform hover:-translate-y-1">
+                                        <i class="fa-solid fa-compass mr-2"></i>开始探索
+                                    </button>
+                                    <button onclick="router('teachers')" class="bg-transparent border-2 border-earth-yellow text-earth-yellow hover:bg-earth-yellow hover:text-chuxiong-black font-bold py-3 px-8 rounded-full transition">
+                                        <i class="fa-solid fa-chalkboard-user mr-2"></i>教师入口
+                                    </button>
+                                    <button onclick="showModal('quick-tour')" class="bg-white bg-opacity-10 hover:bg-opacity-20 text-white font-bold py-3 px-8 rounded-full transition backdrop-blur-sm">
+                                        <i class="fa-solid fa-play-circle mr-2"></i>观看介绍
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="md:w-2/5 flex justify-center">
+                                <div class="relative">
+                                    <div class="w-64 h-64 md:w-80 md:h-80 bg-earth-yellow rounded-full opacity-20 absolute -top-4 -left-4 animate-pulse"></div>
+                                    <img src="https://placehold.co/400x400/2C2C2C/E6C288?text=Art+Education" alt="美育" class="relative rounded-full shadow-2xl border-4 border-earth-yellow border-opacity-30">
+                                    <div class="absolute -bottom-4 -right-4 bg-white text-chuxiong-black p-3 rounded-lg shadow-lg">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-star text-yellow-500"></i>
+                                            <span class="font-bold">4.8/5</span>
+                                            <span class="text-xs text-gray-500">教师评分</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Navigation Cards -->
+                <div class="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+                        ${renderSmallNavCard('resources', 'fa-book-open', '美育资源', '2,847个资源')}
+                        ${renderSmallNavCard('local', 'fa-mountain', '乡土美育', '楚雄特色')}
+                        ${renderSmallNavCard('teachers', 'fa-chalkboard-user', '教师备课', '教案下载')}
+                        ${renderSmallNavCard('students', 'fa-paintbrush', '学生创作', '作品展示')}
+                        ${renderSmallNavCard('calendar', 'fa-calendar-days', '活动日历', '近期活动')}
+                        ${renderSmallNavCard('search', 'fa-magnifying-glass', '快速搜索', '查找资源')}
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="max-w-3xl mx-auto px-4 mt-8">
+                    <div class="bg-white rounded-full shadow-lg p-2 flex items-center border border-gray-200">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 ml-4 text-lg"></i>
+                        <input type="text" placeholder="搜索课程、教案、资源..." class="flex-grow px-4 py-2 outline-none text-gray-700 bg-transparent" id="global-search">
+                        <button onclick="performSearch()" class="bg-chuxiong-red text-white px-6 py-2 rounded-full hover:bg-red-700 transition font-medium">
+                            搜索
+                        </button>
+                    </div>
+                    <div class="flex justify-center gap-3 mt-3 text-xs text-gray-500">
+                        <span>热门搜索:</span>
+                        <button onclick="quickSearch('彝族')" class="hover:text-chuxiong-red transition">彝族</button>
+                        <button onclick="quickSearch('剪纸')" class="hover:text-chuxiong-red transition">剪纸</button>
+                        <button onclick="quickSearch('舞蹈')" class="hover:text-chuxiong-red transition">舞蹈</button>
+                        <button onclick="quickSearch('手工')" class="hover:text-chuxiong-red transition">手工</button>
+                    </div>
+                </div>
+
+                <!-- Weekly Picks -->
+                <div class="max-w-7xl mx-auto px-4 py-16">
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <h2 class="text-3xl font-display text-chuxiong-black">本周精选</h2>
+                            <p class="text-gray-500 mt-2">编辑团队精心挑选的优质内容</p>
+                        </div>
+                        <button onclick="router('resources')" class="text-chuxiong-red hover:underline font-medium">查看更多 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        ${resourcesData.slice(0, 3).map(item => renderResourceCard(item)).join('')}
+                    </div>
+                </div>
+
+                <!-- Stats Counter -->
+                <div class="bg-white py-12 border-y border-gray-100">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                            <div class="p-4">
+                                <div class="text-4xl font-display gradient-text mb-2">2,847</div>
+                                <div class="text-gray-500 text-sm">美育资源</div>
+                                <div class="progress-bar mt-2 w-3/4 mx-auto"><div class="progress-fill w-[85%]"></div></div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-4xl font-display gradient-text mb-2">156</div>
+                                <div class="text-gray-500 text-sm">合作学校</div>
+                                <div class="progress-bar mt-2 w-3/4 mx-auto"><div class="progress-fill w-[62%]"></div></div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-4xl font-display gradient-text mb-2">12.5k</div>
+                                <div class="text-gray-500 text-sm">受益学生</div>
+                                <div class="progress-bar mt-2 w-3/4 mx-auto"><div class="progress-fill w-[91%]"></div></div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-4xl font-display gradient-text mb-2">48</div>
+                                <div class="text-gray-500 text-sm">非遗项目</div>
+                                <div class="progress-bar mt-2 w-3/4 mx-auto"><div class="progress-fill w-[75%]"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials -->
+                <div class="bg-earth-yellow bg-opacity-10 py-16">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl font-display text-center text-chuxiong-black mb-12">一线教师说</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${testimonials.map(t => `
+                                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-chuxiong-red rounded-full flex items-center justify-center text-white font-bold text-lg">${t.avatar[1]}</div>
+                                        <div class="ml-3">
+                                            <div class="font-bold text-gray-800">${t.name}</div>
+                                            <div class="text-xs text-gray-500">${t.role}</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-600 italic mb-4">"${t.content}"</div>
+                                    <div class="flex text-yellow-400 text-sm">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="max-w-7xl mx-auto px-4 py-16">
+                    <h2 class="text-3xl font-display text-center text-chuxiong-black mb-12">使用指南</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        ${renderGuideStep('1', 'fa-magnifying-glass', '浏览资源', '按分类或关键词查找所需课程资源')}
+                        ${renderGuideStep('2', 'fa-download', '下载教案', '一键下载课件包，包含PPT、教案、素材')}
+                        ${renderGuideStep('3', 'fa-chalkboard', '课堂教学', '按照教案指导开展艺术课程教学')}
+                        ${renderGuideStep('4', 'fa-camera', '上传作品', '拍摄学生作品上传至平台展示交流')}
+                    </div>
+                    <div class="text-center mt-10">
+                        <button onclick="showModal('offline-guide')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-6 rounded-full transition">
+                            <i class="fa-solid fa-book-open mr-2"></i>查看详细使用手册
+                        </button>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="bg-white py-16 border-t border-gray-100">
+                    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1">
+                            <h2 class="text-3xl font-display mb-6">关于我们</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                我们是一支由一线乡村教师、艺术家和教育技术专家组成的团队。我们的愿景是消除城乡美育差距，让每一个乡村孩子都能自信地表达美、创造美。
+                            </p>
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <p class="ml-4 text-gray-600">所有资源均适配乡村学校硬件条件，支持离线使用</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <p class="ml-4 text-gray-600">深度挖掘本土民族文化资源，培养文化自信</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <p class="ml-4 text-gray-600">免费开放，采用CC协议，鼓励知识共享</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <button onclick="showModal('team-info')" class="bg-chuxiong-red text-white px-6 py-2 rounded-full hover:bg-red-700 transition font-medium">了解团队详情</button>
+                                <button onclick="showModal('contact-us')" class="border border-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-50 transition font-medium">联系我们</button>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2">
+                            <img src="https://placehold.co/600x450/F3F4F6/9CA3AF?text=Our+Team" alt="团队介绍" class="rounded-lg shadow-md w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="bg-chuxiong-black text-white py-12">
+                    <div class="max-w-4xl mx-auto px-4 text-center">
+                        <h2 class="text-2xl font-display mb-4 text-earth-yellow">订阅更新通知</h2>
+                        <p class="text-gray-400 mb-6">每周精选资源推送、活动预告、教学心得分享</p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto">
+                            <input type="email" placeholder="输入您的邮箱地址" class="flex-grow px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-earth-yellow">
+                            <button class="bg-earth-yellow text-chuxiong-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition">订阅</button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4">我们尊重您的隐私，不会发送垃圾邮件。可随时取消订阅。</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSmallNavCard(route, icon, title, desc) {
+            const onclick = route === 'search' ? 'document.getElementById("global-search")?.focus()' : `router('${route}')`;
+            return `
+                <div onclick="${onclick}" class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer border-b-2 border-transparent hover:border-chuxiong-red text-center">
+                    <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-chuxiong-red transition">
+                        <i class="fa-solid ${icon} text-chuxiong-red text-lg group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-800 mb-1">${title}</h3>
+                    <p class="text-xs text-gray-500">${desc}</p>
+                </div>
+            `;
+        }
+
+        function renderGuideStep(num, icon, title, desc) {
+            return `
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center card-hover">
+                    <div class="w-16 h-16 bg-earth-yellow bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-chuxiong-red">${num}</span>
+                    </div>
+                    <div class="w-10 h-10 bg-chuxiong-red rounded-lg flex items-center justify-center mx-auto mb-4 -mt-10 relative z-10 border-4 border-white">
+                        <i class="fa-solid ${icon} text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">${title}</h3>
+                    <p class="text-sm text-gray-500">${desc}</p>
+                </div>
+            `;
+        }
+
+        function renderResourceCard(item) {
+            return `
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden border border-gray-100 flex flex-col h-full card-hover">
+                    <div class="relative h-48 overflow-hidden group cursor-pointer" onclick="openResourceDetail(${item.id})">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
+                            ${item.type === 'video' ? '<i class="fa-solid fa-play mr-1"></i>视频' : item.type === 'pdf' ? '<i class="fa-solid fa-file-pdf mr-1"></i>文档' : '<i class="fa-solid fa-music mr-1"></i>音频'}
+                        </div>
+                        <div class="absolute bottom-2 left-2 flex gap-1">
+                            ${item.tags.slice(0, 2).map(tag => `<span class="bg-white bg-opacity-90 text-xs px-2 py-1 rounded text-gray-700">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-semibold text-chuxiong-red bg-red-50 px-2 py-1 rounded">${item.grade}</span>
+                            <div class="flex items-center text-yellow-500 text-xs">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="ml-1 font-medium">${item.rating}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-1">${item.title}</h3>
+                        <p class="text-sm text-gray-500 mb-4 line-clamp-2 flex-grow">${item.desc}</p>
+                        <div class="flex justify-between items-center mt-auto">
+                            <span class="text-xs text-gray-400"><i class="fa-solid fa-download mr-1"></i>${item.downloads}</span>
+                            <button onclick="openResourceDetail(${item.id})" class="bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium py-1 px-4 rounded transition text-sm">
+                                查看详情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResources() {
+            return `
+                <div class="bg-white border-b border-gray-200">
+                    <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div>
+                                <h1 class="text-3xl font-display text-chuxiong-black mb-2">美育资源馆</h1>
+                                <p class="text-gray-500 text-sm">共收录 ${resourcesData.length} 个优质资源，持续更新中...</p>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-100 p-1 rounded-lg">
+                                <button class="p-2 bg-white rounded shadow-sm text-chuxiong-red"><i class="fa-solid fa-grid-2"></i></button>
+                                <button class="p-2 text-gray-500 hover:text-gray-700"><i class="fa-solid fa-list"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex flex-wrap gap-2" id="resource-filters">
+                            <button class="filter-btn active bg-chuxiong-black text-white px-4 py-2 rounded-full text-sm font-medium transition" data-filter="all">全部 (${resourcesData.length})</button>
+                            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-filter="music">音乐律动</button>
+                            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-filter="art">视觉美术</button>
+                            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-filter="dance">舞蹈戏剧</button>
+                            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-filter="interdisciplinary">跨学科</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+                    <!-- Sidebar Layout -->
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <!-- Main Content -->
+                        <div class="lg:w-3/4">
+                            <div id="resources-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            </div>
+                            <div class="mt-8 flex justify-center">
+                                <div class="flex gap-2">
+                                    <button class="w-10 h-10 bg-chuxiong-red text-white rounded-lg font-bold">1</button>
+                                    <button class="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">2</button>
+                                    <button class="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">3</button>
+                                    <button class="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200"><i class="fa-solid fa-ellipsis"></i></button>
+                                    <button class="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="lg:w-1/4 space-y-6">
+                            <!-- Hot Tags -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h3 class="font-bold text-gray-800 mb-4"><i class="fa-solid fa-fire text-red-500 mr-2"></i>热门标签</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    ${['彝族', '白族', '剪纸', '刺绣', '舞蹈', '民歌', '陶艺', '写生', '手工', '节气', '建筑', '戏曲'].map(tag => 
+                                        `<span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs hover:bg-chuxiong-red hover:text-white cursor-pointer transition">${tag}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Top Downloads -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h3 class="font-bold text-gray-800 mb-4"><i class="fa-solid fa-chart-simple text-blue-500 mr-2"></i>下载排行</h3>
+                                <div class="space-y-3">
+                                    ${resourcesData.sort((a,b) => b.downloads - a.downloads).slice(0, 5).map((item, idx) => `
+                                        <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition" onclick="openResourceDetail(${item.id})">
+                                            <div class="w-6 h-6 ${idx < 3 ? 'bg-chuxiong-red text-white' : 'bg-gray-200 text-gray-600'} rounded-full flex items-center justify-center text-xs font-bold">${idx + 1}</div>
+                                            <div class="flex-grow min-w-0">
+                                                <div class="text-sm font-medium text-gray-800 truncate">${item.title}</div>
+                                                <div class="text-xs text-gray-400">${item.downloads} 次下载</div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Quick Links -->
+                            <div class="bg-earth-yellow bg-opacity-20 p-6 rounded-xl">
+                                <h3 class="font-bold text-chuxiong-black mb-3">快捷入口</h3>
+                                <div class="space-y-2">
+                                    <button onclick="showModal('offline-guide')" class="w-full text-left bg-white bg-opacity-60 p-3 rounded hover:bg-opacity-80 transition text-sm"><i class="fa-solid fa-download mr-2 text-chuxiong-red"></i>离线资源包</button>
+                                    <button onclick="router('teachers')" class="w-full text-left bg-white bg-opacity-60 p-3 rounded hover:bg-opacity-80 transition text-sm"><i class="fa-solid fa-chalkboard-user mr-2 text-chuxiong-red"></i>教师专区</button>
+                                    <button onclick="showModal('faq')" class="w-full text-left bg-white bg-opacity-60 p-3 rounded hover:bg-opacity-80 transition text-sm"><i class="fa-solid fa-circle-question mr-2 text-chuxiong-red"></i>常见问题</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLocal() {
+            return `
+                <div class="bg-chuxiong-black text-white py-12 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 pattern-yi"></div>
+                    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+                        <h1 class="text-4xl md:text-5xl font-display text-earth-yellow mb-4">乡土美育 · 楚雄印象</h1>
+                        <p class="text-gray-400 max-w-2xl mx-auto mb-8">扎根红土高原，传承民族文化。这里收录了彝族、白族等少数民族的特色艺术形式。</p>
+                        <div class="flex justify-center gap-4 flex-wrap">
+                            <span class="bg-white bg-opacity-10 px-4 py-2 rounded-full text-sm"><i class="fa-solid fa-location-dot mr-2"></i>云南省楚雄州</span>
+                            <span class="bg-white bg-opacity-10 px-4 py-2 rounded-full text-sm"><i class="fa-solid fa-users mr-2"></i>10+ 民族聚居</span>
+                            <span class="bg-white bg-opacity-10 px-4 py-2 rounded-full text-sm"><i class="fa-solid fa-palette mr-2"></i>48 项非遗</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 py-12 space-y-20">
+                    
+                    <!-- Topic 1: Embroidery -->
+                    <div class="flex flex-col lg:flex-row gap-10 items-start">
+                        <div class="lg:w-1/2">
+                            <div class="relative rounded-xl overflow-hidden shadow-2xl group">
+                                <img src="https://placehold.co/800x600/B93A32/FFFFFF?text=Yi+Embroidery+Masterpiece" alt="彝族刺绣" class="w-full h-auto transform group-hover:scale-105 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-0 left-0 p-6 text-white">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="bg-chuxiong-red text-xs px-2 py-1 rounded font-bold">核心专题</span>
+                                        <span class="text-xs text-gray-300">预计学习时长：3课时</span>
+                                    </div>
+                                    <h3 class="text-3xl font-display mb-2">彝族刺绣纹样解析</h3>
+                                    <p class="text-sm opacity-90">马缨花、火焰纹、八角纹背后的文化寓意与美学法则</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 space-y-6">
+                            <h2 class="text-3xl font-display text-chuxiong-red">指尖上的史诗</h2>
+                            <p class="text-gray-600 leading-relaxed text-lg">
+                                彝族刺绣不仅是装饰，更是穿在身上的历史。本专题通过高清大图解析常见纹样，并提供简单的课堂临摹教案，让学生理解对称、对比等形式美法则。
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <div class="text-chuxiong-red font-bold mb-1"><i class="fa-solid fa-graduation-cap mr-2"></i>适用年级</div>
+                                    <div class="text-sm text-gray-600">小学中高段 / 初中</div>
+                                </div>
+                                <div class="bg-yellow-50 p-4 rounded-lg">
+                                    <div class="text-yellow-600 font-bold mb-1"><i class="fa-solid fa-clock mr-2"></i>课时安排</div>
+                                    <div class="text-sm text-gray-600">3-5课时（含实践）</div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <button onclick="openResourceDetail(99)" class="bg-chuxiong-red text-white px-6 py-3 rounded-lg hover:bg-red-700 transition font-medium shadow-lg shadow-red-200">进入专题学习</button>
+                                <button class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition font-medium">下载教案包</button>
+                            </div>
+                            
+                            <!-- Pattern Gallery -->
+                            <div class="mt-6">
+                                <h4 class="font-bold text-gray-800 mb-3">常见纹样图例</h4>
+                                <div class="grid grid-cols-4 gap-3">
+                                    ${['马缨花', '火焰纹', '八角纹', '波纹'].map(name => `
+                                        <div class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center hover:bg-chuxiong-red hover:text-white transition cursor-pointer group">
+                                            <div class="w-12 h-12 border-2 border-dashed border-gray-300 rounded-full mb-2 group-hover:border-white"></div>
+                                            <span class="text-xs">${name}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topic 2: Architecture Gallery -->
+                    <div>
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <h2 class="text-3xl font-display text-chuxiong-black mb-2">白族民居色彩密码</h2>
+                                <p class="text-gray-500">"三坊一照壁，四合五天井"的建筑智慧</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="scroll-left" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition"><i class="fa-solid fa-chevron-left"></i></button>
+                                <button id="scroll-right" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div id="gallery-container" class="flex overflow-x-auto space-x-4 pb-4 hide-scrollbar snap-x">
+                            ${[
+                                { title: '照壁彩绘', desc: '水墨丹青与书法艺术的完美结合', color: 'E8D5B7' },
+                                { title: '门楼装饰', desc: '精美木雕展现工匠高超技艺', color: '8B4513' },
+                                { title: '庭院布局', desc: '四合五天井的空间美学', color: '708090' },
+                                { title: '彩绘细节', desc: '花鸟鱼虫栩栩如生', color: '2F4F4F' },
+                                { title: '石板路面', desc: '岁月打磨出的光泽', color: 'A9A9A9' }
+                            ].map(item => `
+                                <div class="snap-center shrink-0 w-80 md:w-96 relative rounded-xl overflow-hidden shadow-md cursor-pointer card-hover">
+                                    <img src="https://placehold.co/400x300/${item.color}/FFFFFF?text=${encodeURIComponent(item.title)}" class="w-full h-64 object-cover">
+                                    <div class="p-4 bg-white">
+                                        <h4 class="font-bold text-gray-800 text-lg">${item.title}</h4>
+                                        <p class="text-sm text-gray-500 mt-1">${item.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="mt-4 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-800 mb-3">色彩解析</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-10 rounded bg-white border border-gray-200 shadow-sm"></div>
+                                    <span class="text-sm text-gray-600">白色 - 纯洁与光明</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-10 rounded bg-gray-800 shadow-sm"></div>
+                                    <span class="text-sm text-gray-600">青色 - 庄重与沉稳</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-10 rounded bg-chuxiong-red shadow-sm"></div>
+                                    <span class="text-sm text-gray-600">红色 - 喜庆与吉祥</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topic 3: Folk Songs -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="md:w-1/3">
+                                <div class="w-48 h-48 mx-auto bg-gradient-to-br from-chuxiong-red to-earth-yellow rounded-full flex items-center justify-center shadow-xl">
+                                    <i class="fa-solid fa-music text-white text-6xl"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <h2 class="text-3xl font-display text-chuxiong-black mb-4">民间歌谣传唱</h2>
+                                <p class="text-gray-600 mb-6 leading-relaxed">
+                                    彝族梅葛、彝族左则古歌、白族调...这些口耳相传的旋律承载着民族的历史与情感。我们收录了多首经典民歌，配有歌词翻译与简谱，方便课堂教唱。
+                                </p>
+                                <div class="space-y-3">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
+                                        <div class="flex items-center gap-4">
+                                            <button class="w-10 h-10 bg-chuxiong-red text-white rounded-full flex items-center justify-center hover:bg-red-700 transition"><i class="fa-solid fa-play"></i></button>
+                                            <div>
+                                                <div class="font-bold text-gray-800">阿老表</div>
+                                                <div class="text-xs text-gray-500">彝族民歌 · 时长 03:45</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-gray-400">简谱 / 歌词</div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
+                                        <div class="flex items-center gap-4">
+                                            <button class="w-10 h-10 bg-chuxiong-red text-white rounded-full flex items-center justify-center hover:bg-red-700 transition"><i class="fa-solid fa-play"></i></button>
+                                            <div>
+                                                <div class="font-bold text-gray-800">白族调·大理三月好风光</div>
+                                                <div class="text-xs text-gray-500">白族民歌 · 时长 04:12</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-gray-400">简谱 / 歌词</div>
+                                    </div>
+                                </div>
+                                <button class="mt-4 text-chuxiong-red font-medium hover:underline">查看全部歌谣 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Field Records -->
+                    <div>
+                        <h2 class="text-3xl font-display mb-8 text-chuxiong-black"><i class="fa-solid fa-camera-retro mr-2 text-earth-yellow"></i>田野采风记录</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${[
+                                { title: '老艺人的歌谣', type: 'video', duration: '05:23', location: '南华县', img: '333', desc: '记录80岁彝族老人演唱古歌' },
+                                { title: '祭火节现场实录', type: 'photo', count: '24张', location: '永仁县', img: '555', desc: '一年一度祭火节完整记录' },
+                                { title: '刺绣工坊探访', type: 'video', duration: '08:15', location: '大姚县', img: '777', desc: '走进彝族刺绣传承人工坊' },
+                                { title: '白族扎染工艺', type: 'photo', count: '18张', location: '祥云县', img: '999', desc: '传统扎染技艺全流程记录' },
+                                { title: '山歌对唱实录', type: 'audio', duration: '12:30', location: '牟定县', img: '111', desc: '原生态山歌对唱现场录音' },
+                                { title: '木雕匠人访谈', type: 'video', duration: '06:45', location: '禄丰县', img: '222', desc: '老木匠讲述传统木雕技艺' }
+                            ].map(record => `
+                                <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover border border-gray-100">
+                                    <div class="relative h-40 bg-gray-200">
+                                        <img src="https://placehold.co/400x250/${record.img}/FFF?text=${record.type}" class="w-full h-full object-cover">
+                                        <div class="absolute top-2 left-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
+                                            ${record.type === 'video' ? '<i class="fa-solid fa-video mr-1"></i>视频' : record.type === 'photo' ? '<i class="fa-solid fa-image mr-1"></i>图集' : '<i class="fa-solid fa-headphones mr-1"></i>音频'}
+                                        </div>
+                                        <div class="absolute bottom-2 right-2 text-white text-xs bg-black bg-opacity-60 px-2 py-1 rounded">
+                                            ${record.type === 'video' ? record.duration : record.count}
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <h4 class="font-bold text-gray-800 mb-1">${record.title}</h4>
+                                        <div class="flex items-center text-xs text-gray-400 mb-2">
+                                            <i class="fa-solid fa-location-dot mr-1"></i>${record.location}
+                                        </div>
+                                        <p class="text-sm text-gray-500 line-clamp-2">${record.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Interactive Timeline -->
+                    <div>
+                        <h2 class="text-3xl font-display mb-8 text-chuxiong-black text-center">民族文化年历</h2>
+                        <div class="relative">
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
+                            <div class="space-y-8">
+                                ${[
+                                    { month: '一月', title: '阔时节', desc: '傈僳族新年，欢庆丰收', icon: 'fa-calendar-check' },
+                                    { month: '四月', title: '插花节', desc: '大姚彝族传统节日，插花祈福', icon: 'fa-seedling' },
+                                    { month: '六月', title: '火把节', desc: '彝族最隆重节日，点燃火把欢庆', icon: 'fa-fire' },
+                                    { month: '八月', title: '丰收节', desc: '庆祝丰收，歌舞表演', icon: 'fa-wheat-awn' }
+                                ].map((item, idx) => `
+                                    <div class="flex flex-col md:flex-row items-center ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}">
+                                        <div class="md:w-1/2 ${idx % 2 === 0 ? 'md:pl-12 md:text-left' : 'md:pr-12 md:text-right'} mb-4 md:mb-0">
+                                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                                                <h3 class="font-bold text-lg text-chuxiong-red mb-2">${item.title}</h3>
+                                                <p class="text-gray-600 text-sm">${item.desc}</p>
+                                            </div>
+                                        </div>
+                                        <div class="w-12 h-12 bg-earth-yellow rounded-full flex items-center justify-center text-chuxiong-black z-10 border-4 border-white shadow-md shrink-0">
+                                            <i class="fa-solid ${item.icon}"></i>
+                                        </div>
+                                        <div class="md:w-1/2 ${idx % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'} mt-4 md:mt-0">
+                                            <span class="inline-block bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-medium">${item.month}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTeachers() {
+            return `
+                <div class="max-w-7xl mx-auto px-4 py-12">
+                    <div class="text-center mb-12">
+                        <h1 class="text-3xl font-display text-chuxiong-black mb-4">教师备课角</h1>
+                        <p class="text-gray-500 max-w-2xl mx-auto">为乡村教师减负，提供标准化的教学资源包与专业支持。</p>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="flex justify-center mb-8">
+                        <div class="bg-gray-100 p-1 rounded-lg inline-flex">
+                            <button class="tab-btn active bg-white text-chuxiong-red px-4 py-2 rounded-md text-sm font-medium shadow-sm transition" data-tab="lesson-plans">教案资源</button>
+                            <button class="tab-btn bg-transparent text-gray-600 px-4 py-2 rounded-md text-sm font-medium hover:text-chuxiong-red transition" data-tab="micro-class">微课指南</button>
+                            <button class="tab-btn bg-transparent text-gray-600 px-4 py-2 rounded-md text-sm font-medium hover:text-chuxiong-red transition" data-tab="policy">政策文件</button>
+                            <button class="tab-btn bg-transparent text-gray-600 px-4 py-2 rounded-md text-sm font-medium hover:text-chuxiong-red transition" data-tab="community">教师社区</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div id="tab-content">
+                        <!-- Will be rendered by JS -->
+                    </div>
+
+                    <!-- Additional Tools -->
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4">
+                                <i class="fa-solid fa-calendar-days text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">教学日历</h3>
+                            <p class="text-sm text-gray-500 mb-4">根据学期安排，规划美育课程进度。</p>
+                            <button onclick="showModal('teaching-calendar')" class="text-chuxiong-red text-sm font-medium hover:underline">查看日历</button>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-4">
+                                <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">资源上传</h3>
+                            <p class="text-sm text-gray-500 mb-4">分享您的原创教案与教学资源。</p>
+                            <button onclick="showModal('upload-guide')" class="text-chuxiong-red text-sm font-medium hover:underline">上传指南</button>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mx-auto mb-4">
+                                <i class="fa-solid fa-certificate text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">培训证书</h3>
+                            <p class="text-sm text-gray-500 mb-4">完成培训后可下载电子证书。</p>
+                            <button onclick="showModal('certificates')" class="text-chuxiong-red text-sm font-medium hover:underline">查看证书</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initTeacherTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const content = document.getElementById('tab-content');
+
+            const tabContents = {
+                'lesson-plans': `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800">标准化教案包</h2>
+                                <p class="text-sm text-gray-500 mt-1">包含PPT课件、教案文档、素材包的一键下载</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="搜索教案..." class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-chuxiong-red">
+                                <select class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-chuxiong-red bg-white">
+                                    <option>全部年级</option>
+                                    <option>小学低段</option>
+                                    <option>小学高段</option>
+                                    <option>初中</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="divide-y divide-gray-100">
+                            ${[
+                                { title: '小学低段·色彩认知', size: '45.2 MB', format: 'ZIP', grade: '1-2年级', updated: '2024-02-15' },
+                                { title: '民间工艺·剪纸入门', size: '38.5 MB', format: 'ZIP', grade: '2-3年级', updated: '2024-02-10' },
+                                { title: '彝族刺绣·基础纹样', size: '52.1 MB', format: 'ZIP', grade: '3-4年级', updated: '2024-01-28' },
+                                { title: '陶艺基础·捏塑成型', size: '67.8 MB', format: 'ZIP', grade: '4-5年级', updated: '2024-01-20' },
+                                { title: '民间歌谣·学唱指南', size: '120.4 MB', format: 'ZIP', grade: '全学段', updated: '2024-01-15' },
+                                { title: '建筑写生·家乡的桥', size: '42.3 MB', format: 'ZIP', grade: '5-6年级', updated: '2024-01-08' }
+                            ].map(plan => `
+                                <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
+                                            <i class="fa-solid fa-file-zipper"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-gray-800">${plan.title}</div>
+                                            <div class="text-xs text-gray-400 mt-1">${plan.grade} · ${plan.size} · 更新于 ${plan.updated}</div>
+                                        </div>
+                                    </div>
+                                    <button class="bg-chuxiong-red text-white text-xs px-4 py-2 rounded hover:bg-red-700 transition font-medium">
+                                        <i class="fa-solid fa-download mr-1"></i>下载
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `,
+                'micro-class': `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-lg text-gray-800 mb-4">微课使用指南</h3>
+                            <div class="space-y-4">
+                                <div class="flex gap-4 items-start">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shrink-0">1</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800 mb-1">课前准备</h4>
+                                        <p class="text-sm text-gray-500">提前下载视频，检查设备，准备教具材料。</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shrink-0">2</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800 mb-1">视频播放前</h4>
+                                        <p class="text-sm text-gray-500">提出观察问题，激发学生好奇心。</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shrink-0">3</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800 mb-1">视频暂停时</h4>
+                                        <p class="text-sm text-gray-500">组织小组讨论，引导学生思考。</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shrink-0">4</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800 mb-1">视频结束后</h4>
+                                        <p class="text-sm text-gray-500">布置实践任务，鼓励创作表达。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-lg text-gray-800 mb-4">课堂互动建议</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg space-y-3 text-sm text-gray-600">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-lightbulb text-yellow-500 mt-1"></i>
+                                    <p><strong>提问技巧：</strong>使用开放式问题，如"你看到了什么？""你有什么感受？"</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-users text-blue-500 mt-1"></i>
+                                    <p><strong>小组合作：</strong>4-6人一组，分工合作完成创作任务。</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-palette text-purple-500 mt-1"></i>
+                                    <p><strong>作品展示：</strong>每节课留出10分钟展示学生作品，互相评价。</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-star text-red-500 mt-1"></i>
+                                    <p><strong>正向反馈：</strong>关注过程而非结果，鼓励每一个创意表达。</p>
+                                </div>
+                            </div>
+                            <button class="mt-4 w-full bg-chuxiong-red text-white py-2 rounded hover:bg-red-700 transition text-sm font-medium">
+                                <i class="fa-solid fa-download mr-1"></i>下载互动建议手册
+                            </button>
+                        </div>
+                    </div>
+                `,
+                'policy': `
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold mb-6 border-b pb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines text-blue-500"></i>政策文件与美育课标摘录
+                        </h3>
+                        <div class="prose prose-sm max-w-none text-gray-600 h-96 overflow-y-auto pr-4 space-y-6">
+                            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                <h4 class="font-bold text-gray-800 mb-2">义务教育艺术课程标准（2022年版）摘要</h4>
+                                <p>坚持以美育人、以文化人。突出课程综合性和实践性，强化艺术体验，培养学生的审美感知、艺术表现、创意实践和文化理解等核心素养。</p>
+                                <p class="mt-2">课程设计思路：以习近平新时代中国特色社会主义思想为指导，坚持以美育人、以文化人，体现中华优秀传统文化的创造性转化和创新性发展。</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                                <h4 class="font-bold text-gray-800 mb-2">关于全面加强和改进新时代学校美育工作的意见</h4>
+                                <p>逐步完善"艺术基础知识基本技能+艺术审美体验+艺术专项特长"的教学模式。加强美育与德育、智育、体育、劳动教育相融合。</p>
+                                <p class="mt-2">到2022年，学校美育取得突破性进展，美育课程全面开齐开足，教育教学改革成效显著，资源配置不断优化，评价体系逐步健全，管理机制更加完善，育人成效显著增强。</p>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                                <h4 class="font-bold text-gray-800 mb-2">云南省学校美育工作实施方案</h4>
+                                <p>挖掘云南丰富的民族民间艺术资源，开发具有地方特色的校本课程。加强少数民族地区学校美育工作，促进教育公平。</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4">（此处为纯文本展示，供教师快速查阅参考。完整文件请访问教育部官网。）</p>
+                        </div>
+                    </div>
+                `,
+                'community': `
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-lg text-gray-800 mb-4"><i class="fa-solid fa-comments text-green-500 mr-2"></i>教师问答区</h3>
+                            <div class="space-y-4">
+                                ${[
+                                    { q: '如何在没有专业美术教室的情况下开展陶艺课？', a: '可以使用超轻黏土替代陶土，用一次性盘子作为工作台，同样能达到教学效果。', author: '李老师', date: '2天前', replies: 8 },
+                                    { q: '低年级学生注意力不集中怎么办？', a: '建议将课程拆分成15分钟的小模块，穿插律动游戏，保持学生的参与度。', author: '张老师', date: '5天前', replies: 12 },
+                                    { q: '如何评价学生的艺术作品？', a: '采用过程性评价，关注创意、参与度、合作能力，而非单纯的技巧水平。', author: '王老师', date: '1周前', replies: 15 }
+                                ].map(item => `
+                                    <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                                        <div class="font-medium text-gray-800 mb-1">${item.q}</div>
+                                        <div class="bg-gray-50 p-3 rounded text-sm text-gray-600 mb-2">
+                                            <i class="fa-solid fa-reply text-gray-400 mr-1"></i> ${item.a}
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-400">
+                                            <span>${item.author} · ${item.date}</span>
+                                            <span><i class="fa-regular fa-comment mr-1"></i>${item.replies} 回复</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition text-sm font-medium">
+                                <i class="fa-solid fa-plus mr-1"></i>发布新问题
+                            </button>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-lg text-gray-800 mb-4"><i class="fa-solid fa-bullhorn text-orange-500 mr-2"></i>教学心得分享</h3>
+                            <div class="bg-earth-yellow bg-opacity-10 p-4 rounded-lg">
+                                <p class="text-sm text-gray-600 italic">"将本地民歌引入音乐课堂后，孩子们的学习兴趣明显提高了，下课后还在哼唱。"</p>
+                                <div class="text-right text-xs text-gray-500 mt-2">—— 刘老师，楚雄市某小学</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            };
+
+            function renderTab(tab) {
+                content.innerHTML = tabContents[tab] || '';
+                tabs.forEach(t => {
+                    t.classList.remove('active', 'bg-white', 'text-chuxiong-red', 'shadow-sm');
+                    t.classList.add('bg-transparent', 'text-gray-600');
+                });
+                const activeTab = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+                activeTab.classList.add('active', 'bg-white', 'text-chuxiong-red', 'shadow-sm');
+                activeTab.classList.remove('bg-transparent', 'text-gray-600');
+            }
+
+            // Initial render
+            renderTab('lesson-plans');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => renderTab(tab.dataset.tab));
+            });
+        }
+
+        function renderStudents() {
+            return `
+                <div class="max-w-7xl mx-auto px-4 py-12">
+                    <div class="text-center mb-8">
+                        <span class="inline-block bg-earth-yellow text-chuxiong-black px-3 py-1 rounded-full text-xs font-bold mb-3">CC BY-NC-SA 4.0 协议</span>
+                        <h1 class="text-4xl font-display text-chuxiong-black mb-4">学生创作展</h1>
+                        <p class="text-gray-500 max-w-2xl mx-auto">每季度更新，展示来自乡村学校的优秀艺术作品。所有作品均获得作者及监护人授权展示。</p>
+                    </div>
+
+                    <!-- Filter -->
+                    <div class="flex justify-center gap-3 mb-10 flex-wrap">
+                        <button class="work-filter-btn active bg-chuxiong-black text-white px-4 py-2 rounded-full text-sm font-medium transition" data-cat="all">全部</button>
+                        <button class="work-filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-cat="绘画">绘画</button>
+                        <button class="work-filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-cat="手工">手工</button>
+                        <button class="work-filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-cat="陶艺">陶艺</button>
+                        <button class="work-filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-cat="摄影">摄影</button>
+                        <button class="work-filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition" data-cat="音乐">音乐</button>
+                    </div>
+
+                    <!-- Season Banner -->
+                    <div class="bg-gradient-to-r from-chuxiong-red to-earth-yellow rounded-xl p-6 mb-10 text-white flex flex-col md:flex-row items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-display mb-2">2024年春季刊 · 正在征集</h2>
+                            <p class="text-sm opacity-90">截止日期：2024年5月31日 · 期待更多作品加入展览</p>
+                        </div>
+                        <button onclick="showModal('submit-work')" class="mt-4 md:mt-0 bg-white text-chuxiong-red px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition shadow-lg">
+                            <i class="fa-solid fa-upload mr-2"></i>提交作品
+                        </button>
+                    </div>
+
+                    <!-- Grid -->
+                    <div id="student-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        ${studentWorks.map(work => renderStudentCard(work)).join('')}
+                    </div>
+
+                    <!-- More Info -->
+                    <div class="mt-12 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="md:w-2/3">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">关于学生作品展示</h3>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i>所有作品默认采用 <strong>CC BY-NC-SA 4.0</strong> 协议共享</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i>仅展示化名以保护学生隐私</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i>每季度由教师团队评选优秀作品更新</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i>作品可用于教学研究，禁止商业使用</li>
+                                </ul>
+                            </div>
+                            <div class="md:w-1/3 text-center">
+                                <div class="text-3xl font-display gradient-text mb-1">248</div>
+                                <div class="text-sm text-gray-500 mb-4">累计展出作品</div>
+                                <div class="text-3xl font-display gradient-text mb-1">56</div>
+                                <div class="text-sm text-gray-500">参与学校</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStudentCard(work) {
+            return `
+                <div class="group relative bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition card-hover work-item" data-cat="${work.category}">
+                    <div class="aspect-square overflow-hidden bg-gray-100 relative">
+                        <img src="${work.img}" alt="${work.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-2 left-2">
+                            <span class="bg-white bg-opacity-90 text-xs px-2 py-1 rounded font-medium text-gray-700">${work.category}</span>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition flex items-center justify-center">
+                            <button class="opacity-0 group-hover:opacity-100 bg-white text-chuxiong-black px-4 py-2 rounded-full font-medium transition transform scale-90 group-hover:scale-100">
+                                <i class="fa-solid fa-expand mr-1"></i> 查看大图
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-1">${work.title}</h3>
+                        <p class="text-xs text-gray-500 mb-3 line-clamp-2">${work.desc}</p>
+                        
+                        <div class="border-t pt-3 mt-2">
+                            <div class="flex items-center mb-1">
+                                <i class="fa-regular fa-user text-gray-400 text-xs w-4"></i>
+                                <span class="text-xs text-gray-600 ml-1">${work.name} (${work.school})</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-chalkboard-user text-gray-400 text-xs w-4"></i>
+                                    <span class="text-xs text-gray-600 ml-1">指导: ${work.teacher}</span>
+                                </div>
+                                <div class="flex items-center text-red-400 text-xs">
+                                    <i class="fa-regular fa-heart mr-1"></i>
+                                    <span>${work.likes}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCalendar() {
+            return `
+                <div class="max-w-7xl mx-auto px-4 py-12">
+                    <div class="text-center mb-12">
+                        <h1 class="text-3xl font-display text-chuxiong-black mb-4">活动日历</h1>
+                        <p class="text-gray-500">了解平台近期活动、工作坊、培训与展览信息。</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Events List -->
+                        <div class="lg:col-span-2 space-y-6">
+                            ${eventsData.map(event => `
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 card-hover">
+                                    <div class="md:w-32 shrink-0 text-center">
+                                        <div class="bg-chuxiong-red text-white rounded-lg p-3 inline-block">
+                                            <div class="text-xs uppercase">${event.date.split('-')[1]}月</div>
+                                            <div class="text-2xl font-bold">${event.date.split('-')[2].split(' ')[0]}</div>
+                                        </div>
+                                        <div class="mt-2 text-xs text-gray-400">${event.date.split(' 至 ')[1] || ''}</div>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded font-medium">${event.type}</span>
+                                            <span class="text-xs ${event.status === '进行中' ? 'text-green-600' : event.status === '即将开始' ? 'text-orange-600' : 'text-gray-400'} font-medium">${event.status}</span>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-800 mb-2">${event.title}</h3>
+                                        <p class="text-sm text-gray-500 mb-4">${event.desc}</p>
+                                        <div class="flex gap-3">
+                                            <button class="bg-chuxiong-red text-white text-xs px-4 py-2 rounded hover:bg-red-700 transition font-medium">
+                                                ${event.status === '进行中' || event.status === '报名中' ? '立即报名' : '查看详情'}
+                                            </button>
+                                            <button class="border border-gray-300 text-gray-600 text-xs px-4 py-2 rounded hover:bg-gray-50 transition font-medium">
+                                                <i class="fa-regular fa-calendar-plus mr-1"></i> 添加到日历
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h3 class="font-bold text-gray-800 mb-4">活动类型</h3>
+                                <div class="space-y-2">
+                                    ${['征集活动', '工作坊', '教师培训', '作品展览', '文化节日'].map(type => `
+                                        <button class="w-full text-left p-2 rounded hover:bg-gray-50 text-sm text-gray-600 transition flex justify-between items-center">
+                                            <span>${type}</span>
+                                            <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="bg-earth-yellow bg-opacity-20 p-6 rounded-xl">
+                                <h3 class="font-bold text-chuxiong-black mb-2">往期活动回顾</h3>
+                                <p class="text-sm text-gray-600 mb-4">查看过去活动的精彩瞬间与成果展示。</p>
+                                <button class="text-chuxiong-red text-sm font-medium hover:underline">查看回顾 <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                                <h3 class="font-bold text-gray-800 mb-2">订阅活动通知</h3>
+                                <p class="text-xs text-gray-500 mb-4">第一时间获取活动报名与更新信息</p>
+                                <button class="w-full bg-chuxiong-red text-white py-2 rounded hover:bg-red-700 transition text-sm font-medium">
+                                    <i class="fa-solid fa-bell mr-1"></i> 开启通知
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Logic Functions ---
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function initResourceFilter() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const grid = document.getElementById('resources-grid');
+            
+            renderGridItems('all');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => {
+                        b.classList.remove('bg-chuxiong-black', 'text-white');
+                        b.classList.add('bg-gray-100', 'text-gray-600');
+                    });
+                    btn.classList.remove('bg-gray-100', 'text-gray-600');
+                    btn.classList.add('bg-chuxiong-black', 'text-white');
+
+                    renderGridItems(btn.dataset.filter);
+                });
+            });
+
+            function renderGridItems(filter) {
+                const filtered = filter === 'all' 
+                    ? resourcesData 
+                    : resourcesData.filter(item => item.category === filter);
+                
+                grid.innerHTML = filtered.map(item => renderResourceCard(item)).join('');
+            }
+        }
+
+        function initGallery() {
+            const container = document.getElementById('gallery-container');
+            const leftBtn = document.getElementById('scroll-left');
+            const rightBtn = document.getElementById('scroll-right');
+
+            if(leftBtn && rightBtn && container) {
+                leftBtn.addEventListener('click', () => container.scrollBy({ left: -300, behavior: 'smooth' }));
+                rightBtn.addEventListener('click', () => container.scrollBy({ left: 300, behavior: 'smooth' }));
+            }
+        }
+
+        // Student Work Filter
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('work-filter-btn')) {
+                document.querySelectorAll('.work-filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-chuxiong-black', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                e.target.classList.remove('bg-gray-100', 'text-gray-600');
+                e.target.classList.add('active', 'bg-chuxiong-black', 'text-white');
+
+                const category = e.target.dataset.cat;
+                document.querySelectorAll('.work-item').forEach(item => {
+                    if (category === 'all' || item.dataset.cat === category) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        function openResourceDetail(id) {
+            const item = resourcesData.find(r => r.id === id) || {
+                title: "彝族刺绣纹样解析专题", grade: "全学段", desc: "深度解析彝族服饰中的文化内涵。",
+                img: "https://placehold.co/800x450/B93A32/FFFFFF?text=Video+Player", type: "video", rating: 4.8, downloads: 1250
+            };
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-black rounded-lg overflow-hidden aspect-video relative flex items-center justify-center group">
+                        <img src="${item.img}" class="w-full h-full object-cover opacity-60">
+                        <button class="absolute w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition">
+                            <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
+                        </button>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <div class="h-1 bg-gray-600 rounded-full overflow-hidden"><div class="h-full bg-chuxiong-red w-1/3"></div></div>
+                            <div class="flex justify-between text-xs mt-2"><span>02:14</span><span>05:30</span></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <h2 class="text-2xl font-bold text-gray-800">${item.title}</h2>
+                            <span class="bg-red-100 text-chuxiong-red text-xs px-2 py-1 rounded font-bold">${item.grade}</span>
+                        </div>
+                        <div class="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                            <span><i class="fa-solid fa-star text-yellow-400 mr-1"></i>${item.rating}</span>
+                            <span><i class="fa-solid fa-download mr-1"></i>${item.downloads} 次下载</span>
+                        </div>
+                        <p class="text-gray-600 mt-3">${item.desc}</p>
+                    </div>
+
+                    <div class="border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-2">配套教案</h3>
+                        <div class="bg-gray-50 p-4 rounded text-sm text-gray-600 space-y-2">
+                            <p><strong>教学目标：</strong>了解彝族刺绣的基本针法，感受色彩搭配。</p>
+                            <p><strong>准备材料：</strong>硬纸板、毛线、针（钝头）。</p>
+                        </div>
+                        
+                        <div class="mt-6 flex gap-4">
+                            <button class="flex-1 bg-chuxiong-red text-white py-2 rounded hover:bg-red-700 transition">
+                                <i class="fa-solid fa-download mr-2"></i>下载教案 PDF
+                            </button>
+                            <button class="flex-1 border border-gray-300 text-gray-700 py-2 rounded hover:bg-gray-50 transition">
+                                <i class="fa-solid fa-print mr-2"></i>打印任务卡
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-3">相关推荐</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            ${resourcesData.filter(r => r.id !== id).slice(0, 2).map(r => `
+                                <div class="bg-gray-50 p-3 rounded cursor-pointer hover:bg-gray-100 transition" onclick="closeModal(); setTimeout(() => openResourceDetail(${r.id}), 300)">
+                                    <div class="text-sm font-medium text-gray-800 truncate">${r.title}</div>
+                                    <div class="text-xs text-gray-400">${r.grade}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+
+        function showModal(type) {
+            const modalContent = document.getElementById('modal-content');
+            let content = '';
+
+            switch(type) {
+                case 'offline-guide':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">离线使用指南</h2>
+                        <div class="space-y-4 text-gray-600">
+                            <p>针对网络不稳定的乡村地区，我们提供以下方案：</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li><strong>资源预下载：</strong>在有网络的环境下，点击资源详情页的"打包下载"按钮，下载离线资源包。</li>
+                                <li><strong>本地服务器：</strong>学校可部署我们的离线版NAS镜像（联系技术支持获取安装指南）。</li>
+                                <li><strong>移动端缓存：</strong>使用APP访问过的视频会自动缓存7天，可在"我的下载"中查看。</li>
+                                <li><strong>U盘分发：</strong>支持将资源包拷贝至U盘，在学校机房电脑上离线播放。</li>
+                            </ol>
+                            <div class="bg-yellow-50 p-3 rounded border border-yellow-200 text-sm">
+                                <i class="fa-solid fa-triangle-exclamation text-yellow-600 mr-1"></i> 提示：视频文件较大，建议在Wi-Fi环境下操作。单个资源包约500MB-2GB。
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'copyright':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">版权与保护声明</h2>
+                        <div class="space-y-4 text-gray-600 text-sm">
+                            <p><strong>版权归属：</strong>本平台资源主要采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="text-blue-500 underline" target="_blank">CC BY-NC-SA 4.0</a> 协议共享。署名-非商业性使用-相同方式共享。</p>
+                            <p><strong>青少年保护：</strong>所有内容经过严格审核，杜绝不良信息。我们鼓励展示学生作品，但默认使用化名保护隐私。</p>
+                            <p><strong>使用限制：</strong>不得将本平台资源用于任何商业目的。改编后作品需采用相同协议共享。</p>
+                            <p><strong>侵权投诉：</strong>如发现内容侵犯您的权益，请发送邮件至 copyright@xiangtu-art.edu.cn。</p>
+                        </div>
+                    `;
+                    break;
+                case 'privacy':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">青少年保护提示</h2>
+                        <div class="space-y-4 text-gray-600 text-sm">
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-green-700 mb-2"><i class="fa-solid fa-shield-halved mr-2"></i>隐私保护</h3>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>学生作品默认使用化名展示</li>
+                                    <li>不收集学生个人敏感信息</li>
+                                    <li>教师账号需学校认证后方可使用</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-blue-700 mb-2"><i class="fa-solid fa-eye mr-2"></i>内容审核</h3>
+                                <p>所有上传内容经过人工审核，确保适合未成年人观看。杜绝暴力、色情、恐怖等不良信息。</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-purple-700 mb-2"><i class="fa-solid fa-hand-holding-heart mr-2"></i>家长须知</h3>
+                                <p>我们建议家长陪同孩子使用本平台，共同欣赏艺术作品，促进亲子交流。</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'faq':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">常见问题解答</h2>
+                        <div class="space-y-4">
+                            ${[
+                                { q: '如何注册教师账号？', a: '请联系所在学校管理员进行统一注册，或发送邮件至 support@xiangtu-art.edu.cn 申请个人账号。' },
+                                { q: '资源可以免费使用吗？', a: '是的，平台所有资源均免费开放，采用CC BY-NC-SA 4.0协议，仅供教育教学使用。' },
+                                { q: '如何上传学生作品？', a: '登录教师账号后，进入"学生创作"页面，点击"提交作品"按钮，按提示上传即可。' },
+                                { q: '视频无法播放怎么办？', a: '请检查网络连接，或尝试下载离线版本。如仍无法解决，请反馈给我们。' }
+                            ].map(item => `
+                                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                    <button class="w-full text-left p-4 font-medium text-gray-800 hover:bg-gray-50 transition flex justify-between items-center" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180')">
+                                        ${item.q}
+                                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
+                                    </button>
+                                    <div class="p-4 bg-gray-50 text-sm text-gray-600 hidden border-t border-gray-100">
+                                        ${item.a}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 'team-info':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">团队介绍</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <img src="https://placehold.co/100x100/333/FFF?text=Logo" class="rounded-full w-20 h-20">
+                                <div>
+                                    <h3 class="font-bold text-lg">乡土美育实验室</h3>
+                                    <p class="text-sm text-gray-500">成立于2021年 · 云南昆明</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">我们要做的不仅仅是送课下乡，而是发掘乡土本身的美育价值。团队成员包括：</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-chuxiong-red">3</div>
+                                    <div class="text-sm text-gray-500">省级非遗传承人</div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-chuxiong-red">10</div>
+                                    <div class="text-sm text-gray-500">资深美术教研员</div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-chuxiong-red">5</div>
+                                    <div class="text-sm text-gray-500">教育技术专家</div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-chuxiong-red">20+</div>
+                                    <div class="text-sm text-gray-500">一线乡村教师</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'contact-us':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">联系我们</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">意见反馈</h3>
+                                    <a href="mailto:feedback@xiangtu-art.edu.cn" class="text-blue-500 hover:underline">feedback@xiangtu-art.edu.cn</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 shrink-0">
+                                    <i class="fa-brands fa-weixin"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">微信公众号</h3>
+                                    <p class="text-sm text-gray-500">搜索"乡土美育平台"关注我们</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">办公地址</h3>
+                                    <p class="text-sm text-gray-500">云南省昆明市五华区XX路XX号</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'quick-tour':
+                    content = `
+                        <div class="text-center">
+                            <div class="bg-black rounded-lg aspect-video flex items-center justify-center mb-4">
+                                <button class="w-20 h-20 bg-chuxiong-red rounded-full flex items-center justify-center text-white hover:scale-110 transition">
+                                    <i class="fa-solid fa-play text-3xl ml-1"></i>
+                                </button>
+                            </div>
+                            <h2 class="text-xl font-bold mb-2">平台介绍视频</h2>
+                            <p class="text-gray-500 text-sm">时长：03:45 | 了解乡土美育平台的使命与功能</p>
+                        </div>
+                    `;
+                    break;
+                case 'teaching-calendar':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">教学日历</h2>
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-blue-700 mb-2">2024年春季学期</h3>
+                                <ul class="space-y-1">
+                                    <li>3月：色彩认知与基础技法</li>
+                                    <li>4月：民族纹样与设计</li>
+                                    <li>5月：民间工艺体验</li>
+                                    <li>6月：期末创作与展览</li>
+                                </ul>
+                            </div>
+                            <button class="w-full bg-chuxiong-red text-white py-2 rounded hover:bg-red-700 transition text-sm font-medium">
+                                <i class="fa-solid fa-download mr-1"></i> 下载完整日历 PDF
+                            </button>
+                        </div>
+                    `;
+                    break;
+                case 'upload-guide':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">资源上传指南</h2>
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>登录教师账号，进入"教师备课角"</li>
+                                <li>点击"上传资源"按钮</li>
+                                <li>填写资源信息（标题、描述、适用年级等）</li>
+                                <li>上传文件（支持PDF、ZIP、MP4等格式）</li>
+                                <li>提交审核，1-3个工作日内完成审核</li>
+                            </ol>
+                            <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                                <i class="fa-solid fa-info-circle text-yellow-600 mr-1"></i> 上传资源即表示您同意采用 CC BY-NC-SA 4.0 协议共享。
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'certificates':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">培训证书</h2>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4 flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium text-gray-800">乡土美育基础培训</div>
+                                    <div class="text-xs text-gray-400">完成时间：2024-01-15 · 12学时</div>
+                                </div>
+                                <button class="text-chuxiong-red text-sm font-medium hover:underline"><i class="fa-solid fa-download mr-1"></i>下载</button>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4 flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium text-gray-800">彝族刺绣专题工作坊</div>
+                                    <div class="text-xs text-gray-400">完成时间：2024-03-20 · 8学时</div>
+                                </div>
+                                <button class="text-chuxiong-red text-sm font-medium hover:underline"><i class="fa-solid fa-download mr-1"></i>下载</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'submit-work':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">提交学生作品</h2>
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <p>请将作品照片/音频/视频及相关信息发送至邮箱：</p>
+                            <div class="bg-blue-50 p-3 rounded text-center font-bold text-blue-700 text-lg">
+                                works@xiangtu-art.edu.cn
+                            </div>
+                            <div class="space-y-2">
+                                <p><strong>邮件格式要求：</strong></p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>作品名称</li>
+                                    <li>学生化名（保护隐私）</li>
+                                    <li>学校名称</li>
+                                    <li>指导教师姓名</li>
+                                    <li>创作说明（100字以内）</li>
+                                </ul>
+                            </div>
+                            <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                                <i class="fa-solid fa-info-circle text-yellow-600 mr-1"></i> 提交作品即表示您同意采用 CC BY-NC-SA 4.0 协议展示。
+                            </div>
+                        </div>
+                    `;
+                    break;
+                default:
+                    content = '<p>内容加载中...</p>';
+            }
+
+            modalContent.innerHTML = content;
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
+
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('global-search').value.trim();
+            if (query) {
+                alert(`搜索功能：查找"${query}"\n\n（演示模式，实际将跳转至搜索结果页）`);
+            }
+        }
+
+        function quickSearch(term) {
+            const input = document.getElementById('global-search');
+            if (input) {
+                input.value = term;
+                performSearch();
+            }
+        }
+
+        // Back to Top Button
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+                btn.classList.remove('opacity-100');
+            }
+        });
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            router('home');
+        });
+    </script>
+</body>
+</html>
+
